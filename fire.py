@@ -105,7 +105,7 @@ class Fire(pygame.sprite.Sprite):
         self.get_loop_sprites(50,50, "orange")
         self.get_end_sprites(50,50, "orange")
 
-        self.isStart = True
+        self.isStart = False
         self.isLoop = False
         self.isEnd = False
 
@@ -114,7 +114,7 @@ class Fire(pygame.sprite.Sprite):
         self.current_sprite = 0
 
         self.image = pygame.Surface((50, 50))
-        self.image = self.all_animations[self.current_animation][self.current_sprite]
+        #self.image = self.all_animations[self.current_animation][self.current_sprite]
 
         self.pos_y = pos_y
         self.pos_x = pos_x
