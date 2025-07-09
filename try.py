@@ -1,8 +1,14 @@
+"""
+The quality of the picture gets worse every time it is rotated, which is why it is better to create some other surface with this same picture but with other angle, 
+This does not worsen the quality of the picture, since the picture itself is never rotated
+"""
 import pygame
 import spritesheet
+from pygame.locals import *
 import math
 
-BLACK = (0,0,0)
+
+pygame.init()
 
 def rotate(surface, angle, scale ):
     rotated_surface = pygame.transform.rotozoom(surface, angle, scale)
@@ -13,15 +19,8 @@ def get_angle(x, y):
     mouse_x, mouse_y = pygame.mouse.get_pos()
     delta_x = mouse_x - x
     delta_y = mouse_y - y
-    
-    if delta_x == 0:
-        angle = 180
-        print(delta_x)
-        return angle
-    
     radians = math.atan(delta_y/ delta_x)
     angle = math.degrees(radians)*-1
-    
     return angle
 
 class Fire(pygame.sprite.Sprite) :
@@ -45,17 +44,7 @@ class Fire(pygame.sprite.Sprite) :
                 self.image, self.rect = rotate(self.all_animations[self.current_animation][int(self.current_sprite)], get_angle(self.pos_x, self.pos_y), 1)
                 self.rect.center = (self.pos_x, self.pos_y)
             
-                    
-                self.current_sprite += 0.1
-
-                if self.current_sprite > len(self.all_animations[self.current_animation]):
-                    self.current_sprite = 0
-                
-
             elif self.isFireball_in_action == True:
-                self.image, self.rect = rotate(self.all_animations[self.current_animation][int(self.current_sprite)], get_angle(self.pos_x, self.pos_y), 1)
-                self.rect.center = (self.pos_x, self.pos_y)
-            
                     
                 self.current_sprite += 0.1
                 self.pos_x += 1.5
@@ -63,6 +52,8 @@ class Fire(pygame.sprite.Sprite) :
                 if self.current_sprite > len(self.all_animations[self.current_animation]):
                     self.current_sprite = 0
                 
+                self.image = self.all_animations[self.current_animation][int(self.current_sprite)]
+                self.rect.center = (self.pos_x, self.pos_y)
 
 
     def update(self):
@@ -90,3 +81,43 @@ class Fire(pygame.sprite.Sprite) :
         self.rect = self.image.get_rect()
         self.rect.center = (self.pos_x, self.pos_y)
         self.image = self.all_animations[self.current_animation][self.current_sprite]
+
+
+WIDTH = 800
+HEIGHT = 800
+BLACK = (0,0,0)
+
+clock = pygame.time.Clock()
+FPS = 60
+DISPLAYSURF = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("ROTATING")
+
+running = True
+
+fire_obj  = Fire(400, 400)
+
+moving_group = pygame.sprite.Group()
+moving_group.add(fire_obj)
+
+while running:
+    
+    DISPLAYSURF.fill(BLACK)
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            running = False
+        
+        mouse_list = pygame.mouse.get_pressed(num_buttons = 3)
+
+        if event.type == MOUSEBUTTONDOWN:
+            if mouse_list[2]== True:
+                fire_obj.isFireball_move = True
+    
+    moving_group.update()
+    moving_group.draw(DISPLAYSURF)
+    
+
+
+    
+    clock.tick(FPS)
+    pygame.display.flip()
+    
