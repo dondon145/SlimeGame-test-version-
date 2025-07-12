@@ -3,7 +3,7 @@ from pygame.locals import *
 import slime
 import grimoire_fire
 import crosshair
-import magic
+import fire_element_magic
 
 pygame.init()
 pygame.mouse.set_visible(False)
@@ -22,12 +22,10 @@ player_y = 300
 player = slime.Slime(player_x, player_y)
 fire_obj = grimoire_fire.Fire((player_x +50), (player_y -25))
 crosshair_obj = crosshair.Crosshair()
-magic_skill = magic.Fire((player_x +50), (player_y -50))
 
 moving_objects = pygame.sprite.Group()
 moving_objects.add(player)
 moving_objects.add(fire_obj)
-moving_objects.add(magic_skill)
 
 running = True
 while running:
@@ -37,20 +35,21 @@ while running:
 
         if event.type == QUIT:
             running = False
-
+        
         if event.type == MOUSEBUTTONDOWN:
             if mouse_list[2]== True:
                 moving_objects.add(fire_obj)
-                moving_objects.add(crosshair_obj)
-                moving_objects.add(magic_skill)
-                magic_skill.isFireball_move = True
                 fire_obj.isStart = True
-            
+                moving_objects.add(crosshair_obj)
+                crosshair_obj.isShowing = True
+        
         if event.type == MOUSEBUTTONUP:
-            if mouse_list[2]== False:
-                crosshair_obj.kill()
-                magic_skill.kill()
+            if mouse_list[2] == False:
                 fire_obj.isEnd = True
+                crosshair_obj.isShowing = False
+
+        
+
 
 
     DISPLAYSURF.fill(BACKGROUND)
