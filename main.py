@@ -76,12 +76,16 @@ while running:
     # changing slime position if moving 
     if pressed_key["a"]== True:
         player.pos_x -= 5
+        casting_flame.pos_x -=5
     if pressed_key["d"]== True:
         player.pos_x += 5
+        casting_flame.pos_x +=5
     if pressed_key["w"]== True:
         player.pos_y -= 5
+        casting_flame.pos_y -=5
     if pressed_key["s"]== True:
         player.pos_y += 5
+        casting_flame.pos_y +=5
 
     # using scope
     if pressed_mouse[2] == True:

@@ -89,7 +89,15 @@ class Fire(pygame.sprite.Sprite):
 
             self.image = self.all_animations[self.current_animation][int(self.current_sprite)]
 
+    def get_pos(self):
+        return self.pos_x, self.pos_y
+    
+    def set_rect_top_left(self):
+        self.rect.topleft = (self.pos_x, self.pos_y)
+
     def update(self):
+        self.get_pos()
+        self.set_rect_top_left()
         self.animate_start()
         self.animate_loop()
         self.animate_end()
