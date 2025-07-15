@@ -4,6 +4,7 @@ import slime
 import grimoire_fire
 import crosshair
 import fire_element_magic
+import training_dummy
 
 pygame.init()
 pygame.mouse.set_visible(False)
@@ -22,9 +23,13 @@ player_y = 300
 player = slime.Slime(player_x, player_y)
 casting_flame = grimoire_fire.Fire((player_x +50), (player_y -25))
 crosshair_obj = crosshair.Crosshair()
+Dummy = training_dummy.Training_Dummy(600, 400)
 
 moving_objects = pygame.sprite.Group()
+
+moving_objects.add(Dummy)
 moving_objects.add(player)
+
 
 pressed_mouse = { 0: False, 1: False, 2: False }
 pressed_key = {"a": False, "w": False, "d": False, "s": False}
@@ -47,7 +52,6 @@ while running:
                 casting_flame.isStart = True
         elif event.type == MOUSEBUTTONUP:
             if mouse_list[2] == False:
-                print("it is false")
                 pressed_mouse[2] = False
                 casting_flame.isEnd = True
 
@@ -97,8 +101,6 @@ while running:
         crosshair_obj.isShowing = False
     
 
-
-    print(casting_flame.isEnd)
     DISPLAYSURF.fill(BACKGROUND)
 
     moving_objects.update()
