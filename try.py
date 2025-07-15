@@ -23,7 +23,7 @@ def get_angle(x, y):
     if delta_x == 0:
         return 0
     
-    radians = math.atan(delta_y/ delta_x)
+    radians = math.atan2(delta_y, delta_x)
     angle = math.degrees(radians)*-1
     return angle
 

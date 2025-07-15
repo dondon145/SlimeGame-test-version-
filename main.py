@@ -15,7 +15,7 @@ DISPLAY_WIDTH = 800
 DISPLAY_HEIGHT = 800
 DISPLAYSURF = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
 
-BACKGROUND = (80, 140, 80)
+BACKGROUND = (80, 80, 160)
 
 player_x = 300
 player_y = 300
@@ -30,6 +30,8 @@ moving_objects.add(player)
 pressed_mouse = { 0: False, 1: False, 2: False }
 pressed_key = {"a": False, "w": False, "d": False, "s": False}
 running = True
+
+
 while running:
     for event in pygame.event.get():
 
@@ -39,6 +41,15 @@ while running:
         if event.type == QUIT:
             running = False
 
+
+        if event.type == MOUSEBUTTONDOWN:
+            if mouse_list[2]== True:
+                pressed_mouse[2]= True
+        elif event.type == MOUSEBUTTONUP:
+            if mouse_list[2] == False:
+                pressed_mouse[2] = False
+
+        # slime movemnt turn on 
         if event.type == KEYDOWN:
             if key_list[K_a]== True:
                 pressed_key["a"] = True
@@ -49,6 +60,7 @@ while running:
             if key_list[K_d] == True:
                 pressed_key["d"] = True
 
+        # slime movement turn off
         elif event.type == KEYUP:
             if key_list[K_a] == False:
                 pressed_key["a"] = False
@@ -59,18 +71,23 @@ while running:
             if key_list[K_d] == False:
                 pressed_key["d"] = False
     
+    # changing slime position if moving 
     if pressed_key["a"]== True:
-        print("it works")
         player.pos_x -= 5
     if pressed_key["d"]== True:
-        print("it works")
         player.pos_x += 5
     if pressed_key["w"]== True:
-        print("it works")
         player.pos_y -= 5
     if pressed_key["s"]== True:
-        print("it works")
         player.pos_y += 5
+
+    # using scope
+    if pressed_mouse[2] == True:
+        moving_objects.add(crosshair_obj)
+        crosshair_obj.isShowing = True
+    elif pressed_mouse[2] == False:
+        crosshair_obj.isShowing = False
+    
 
 
 
