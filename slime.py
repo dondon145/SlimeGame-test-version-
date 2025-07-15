@@ -2,10 +2,10 @@ import pygame
 
 class Slime(pygame.sprite.Sprite):
 
-    def get_idle_sprites(self, width, height):
-        frame_1 = pygame.image.load('/home/big-orange/Desktop/TestGame/slime_idle_black_borders/frame_1.png')
-        frame_2 = pygame.image.load('/home/big-orange/Desktop/TestGame/slime_idle_black_borders/frame_2.png')
-        frame_3 = pygame.image.load('/home/big-orange/Desktop/TestGame/slime_idle_black_borders/frame_3.png')
+    def get_idle_sprites(self, width, height, slime_type):
+        frame_1 = pygame.image.load(f'/home/big-orange/Desktop/TestGame/Slime_animations/{slime_type}_slime_idle/frame_1.png')
+        frame_2 = pygame.image.load(f'/home/big-orange/Desktop/TestGame/Slime_animations/{slime_type}_slime_idle/frame_2.png')
+        frame_3 = pygame.image.load(f'/home/big-orange/Desktop/TestGame/Slime_animations/{slime_type}_slime_idle/frame_3.png')
 
         self.idle_sprites.append(pygame.transform.scale(frame_1, (width, height)))
         self.idle_sprites.append(pygame.transform.scale(frame_2, (width, height)))
@@ -41,7 +41,7 @@ class Slime(pygame.sprite.Sprite):
         self.isIdle = True
         
         self.idle_sprites = []
-        self.get_idle_sprites(50, 50)
+        self.get_idle_sprites(50, 50, "fire")
 
         self.all_animations = [self.idle_sprites]
         self.current_animation = 0
