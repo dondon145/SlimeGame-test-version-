@@ -23,9 +23,17 @@ class Slime(pygame.sprite.Sprite):
             
             self.image = self.all_animations[self.current_animation][int(self.current_sprite)]
 
+    def get_pos(self):
+        return self.pos_x, self.pos_y
+    
+    def set_rect_top_left(self):
+        self.rect.topleft = (self.pos_x, self.pos_y)
+
 
     def update(self):
         self.animate_idle()
+        self.get_pos()
+        self.set_rect_top_left()
 
     def __init__(self, pos_x, pos_y):
         super().__init__()
@@ -42,5 +50,8 @@ class Slime(pygame.sprite.Sprite):
         self.image = pygame.Surface((80, 80))
         self.image = self.all_animations[self.current_animation][self.current_sprite]
 
+        self.pos_x = pos_x
+        self.pos_y = pos_y
+
         self.rect = self.image.get_rect()
-        self.rect.topleft = (pos_x, pos_y)
+        self.rect.topleft = (self.pos_x, self.pos_y)

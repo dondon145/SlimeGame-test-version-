@@ -15,7 +15,7 @@ DISPLAY_WIDTH = 800
 DISPLAY_HEIGHT = 800
 DISPLAYSURF = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
 
-BACKGROUND = (0, 0, 0)
+BACKGROUND = (80, 140, 80)
 
 player_x = 300
 player_y = 300
@@ -25,30 +25,52 @@ crosshair_obj = crosshair.Crosshair()
 
 moving_objects = pygame.sprite.Group()
 moving_objects.add(player)
-moving_objects.add(fire_obj)
+#moving_objects.add(fire_obj)
 
+pressed_mouse = { 0: False, 1: False, 2: False }
+pressed_key = {"a": False, "w": False, "d": False, "s": False}
 running = True
 while running:
     for event in pygame.event.get():
 
         mouse_list = pygame.mouse.get_pressed(num_buttons = 3)
+        key_list = pygame.key.get_pressed()
 
         if event.type == QUIT:
             running = False
-        
-        if event.type == MOUSEBUTTONDOWN:
-            if mouse_list[2]== True:
-                moving_objects.add(fire_obj)
-                fire_obj.isStart = True
-                moving_objects.add(crosshair_obj)
-                crosshair_obj.isShowing = True
-        
-        if event.type == MOUSEBUTTONUP:
-            if mouse_list[2] == False:
-                fire_obj.isEnd = True
-                crosshair_obj.isShowing = False
 
-        
+        if event.type == KEYDOWN:
+            if key_list[K_a]== True:
+                pressed_key["a"] = True
+            if key_list[K_s] == True:
+                pressed_key["s"] = True
+            if key_list[K_w]== True:
+                pressed_key["w"] = True
+            if key_list[K_d] == True:
+                pressed_key["d"] = True
+
+        elif event.type == KEYUP:
+            if key_list[K_a] == False:
+                pressed_key["a"] = False
+            if key_list[K_s] == False:
+                pressed_key["s"] = False
+            if key_list[K_w]== False:
+                pressed_key["w"] = False
+            if key_list[K_d] == False:
+                pressed_key["d"] = False
+    
+    if pressed_key["a"]== True:
+        print("it works")
+        player.pos_x -= 5
+    if pressed_key["d"]== True:
+        print("it works")
+        player.pos_x += 5
+    if pressed_key["w"]== True:
+        print("it works")
+        player.pos_y -= 5
+    if pressed_key["s"]== True:
+        print("it works")
+        player.pos_y += 5
 
 
 

@@ -19,6 +19,10 @@ def get_angle(x, y):
     mouse_x, mouse_y = pygame.mouse.get_pos()
     delta_x = mouse_x - x
     delta_y = mouse_y - y
+    
+    if delta_x == 0:
+        return 0
+    
     radians = math.atan(delta_y/ delta_x)
     angle = math.degrees(radians)*-1
     return angle
@@ -41,8 +45,12 @@ class Fire(pygame.sprite.Sprite) :
                 self.current_sprite = 0
             
             if self.isFireball_in_action == False:
-                self.image, self.rect = rotate(self.all_animations[self.current_animation][int(self.current_sprite)], get_angle(self.pos_x, self.pos_y), 1)
+                self.angle += get_angle(self.pos_x, self.pos_y)
+                self.image, self.rect = rotate(self.all_animations[self.current_animation][int(self.current_sprite)], self.angle, 1)
                 self.rect.center = (self.pos_x, self.pos_y)
+                
+                print(self.angle)
+                self.angle = 0
             
             elif self.isFireball_in_action == True:
                     
@@ -54,6 +62,7 @@ class Fire(pygame.sprite.Sprite) :
                 
                 self.image = self.all_animations[self.current_animation][int(self.current_sprite)]
                 self.rect.center = (self.pos_x, self.pos_y)
+            
 
 
     def update(self):
@@ -76,6 +85,7 @@ class Fire(pygame.sprite.Sprite) :
 
         self.pos_x = pos_x
         self.pos_y = pos_y
+        self.angle = 0
         
         self.image = pygame.Surface((50,50))
         self.rect = self.image.get_rect()
