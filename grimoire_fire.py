@@ -20,6 +20,8 @@ class Fire(pygame.sprite.Sprite):
     def animate_start(self):
 
         if self.isStart == True:
+            if self.current_animation != 0:
+                self.current_sprite = 0
             self.current_animation = 0
             self.current_sprite += 0.1
             
@@ -87,7 +89,6 @@ class Fire(pygame.sprite.Sprite):
 
             self.image = self.all_animations[self.current_animation][int(self.current_sprite)]
 
-
     def update(self):
         self.animate_start()
         self.animate_loop()
@@ -101,10 +102,11 @@ class Fire(pygame.sprite.Sprite):
         self.loop_sprites = []
         self.end_sprites = []
 
-        self.get_start_sprites(50,50, "orange")
-        self.get_loop_sprites(50,50, "orange")
-        self.get_end_sprites(50,50, "orange")
+        self.get_start_sprites(50,50, "blue")
+        self.get_loop_sprites(50,50, "blue")
+        self.get_end_sprites(50,50, "blue")
 
+        self.isShowing = False
         self.isStart = False
         self.isLoop = False
         self.isEnd = False

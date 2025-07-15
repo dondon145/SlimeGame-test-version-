@@ -20,12 +20,11 @@ BACKGROUND = (80, 80, 160)
 player_x = 300
 player_y = 300
 player = slime.Slime(player_x, player_y)
-fire_obj = grimoire_fire.Fire((player_x +50), (player_y -25))
+casting_flame = grimoire_fire.Fire((player_x +50), (player_y -25))
 crosshair_obj = crosshair.Crosshair()
 
 moving_objects = pygame.sprite.Group()
 moving_objects.add(player)
-#moving_objects.add(fire_obj)
 
 pressed_mouse = { 0: False, 1: False, 2: False }
 pressed_key = {"a": False, "w": False, "d": False, "s": False}
@@ -45,9 +44,12 @@ while running:
         if event.type == MOUSEBUTTONDOWN:
             if mouse_list[2]== True:
                 pressed_mouse[2]= True
+                casting_flame.isStart = True
         elif event.type == MOUSEBUTTONUP:
             if mouse_list[2] == False:
+                print("it is false")
                 pressed_mouse[2] = False
+                casting_flame.isEnd = True
 
         # slime movemnt turn on 
         if event.type == KEYDOWN:
@@ -84,13 +86,15 @@ while running:
     # using scope
     if pressed_mouse[2] == True:
         moving_objects.add(crosshair_obj)
+        moving_objects.add(casting_flame)
         crosshair_obj.isShowing = True
+        
     elif pressed_mouse[2] == False:
         crosshair_obj.isShowing = False
     
 
 
-
+    print(casting_flame.isEnd)
     DISPLAYSURF.fill(BACKGROUND)
 
     moving_objects.update()
