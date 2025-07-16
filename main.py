@@ -3,10 +3,8 @@ from pygame.locals import *
 import slime
 import grimoire_fire
 import crosshair
-import fire_element_magic
 import training_dummy
-import health_bar
-import green_slime
+import health_bar, mana_bar, stamina_bar
 
 pygame.init()
 pygame.mouse.set_visible(False)
@@ -29,12 +27,16 @@ casting_flame = grimoire_fire.Fire((player_x +50), (player_y -25))
 crosshair_obj = crosshair.Crosshair()
 Dummy = training_dummy.Training_Dummy(600, 400)
 player_health_bar = health_bar.HealthBar(100, 20, 20)
+player_mana_bar = mana_bar.ManaBar(60, 20, 50)
+player_stamina_bar = stamina_bar.StaminaBar(200, 20, 80)
 
 moving_objects = pygame.sprite.Group()
 
 moving_objects.add(Dummy)
 moving_objects.add(player)
 moving_objects.add(player_health_bar)
+moving_objects.add(player_mana_bar)
+moving_objects.add(player_stamina_bar)
 
 
 pressed_mouse = { 0: False, 1: False, 2: False }
