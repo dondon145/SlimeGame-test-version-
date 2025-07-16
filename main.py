@@ -6,6 +6,7 @@ import crosshair
 import fire_element_magic
 import training_dummy
 import health_bar
+import green_slime
 
 pygame.init()
 pygame.mouse.set_visible(False)
@@ -91,17 +92,17 @@ while running:
     
     # changing slime position if moving 
     if pressed_key["a"]== True:
-        player.pos_x -= 5
-        casting_flame.pos_x -=5
+        player.pos_x -= 2.5
+        casting_flame.pos_x -= 2.5
     if pressed_key["d"]== True:
-        player.pos_x += 5
-        casting_flame.pos_x +=5
+        player.pos_x += 2.5
+        casting_flame.pos_x += 2.5
     if pressed_key["w"]== True:
-        player.pos_y -= 5
-        casting_flame.pos_y -=5
+        player.pos_y -= 2.5
+        casting_flame.pos_y -= 2.5
     if pressed_key["s"]== True:
-        player.pos_y += 5
-        casting_flame.pos_y +=5
+        player.pos_y += 2.5
+        casting_flame.pos_y += 2.5
 
     # using scope and casting
     if pressed_mouse[2] == True:
